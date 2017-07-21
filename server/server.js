@@ -15,15 +15,13 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New user');
 
-  socket.emit('newMessage', {
-    from:'John',
-    text: 'hey,thank you!',
-    createAt: 123123
-
-  });
-
   socket.on('createMessage', (message) => {
     console.log('createMessage', message);
+  io.emit('newMessage', {
+    from: message.from,
+    text: message.text,
+    createAt: new Date().getTime()
+  });
 });
 
 
