@@ -4,7 +4,7 @@ const socketIO = require('socket.io');
 const http = require('http');
 
 const publicPath = path.join(__dirname, '../public');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 console.log(publicPath);
 
@@ -22,6 +22,12 @@ io.on('connection', (socket) => {
     text: message.text,
     createAt: new Date().getTime()
   });
+
+  // socket.broadcast.emit('newMessage', {
+  //   from: message.from,
+  //   text: message.text,
+  //   createAt: new Date().getTime()
+  // });
 });
 
 
@@ -34,6 +40,6 @@ io.on('connection', (socket) => {
 
 app.use(express.static(publicPath));
 server.listen(port, () => {
-    console.log(`Server is up on port 3000 ${port}`);
+    console.log(`Server is up on port ${port}`);
 
 });
